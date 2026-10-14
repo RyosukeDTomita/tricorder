@@ -1,6 +1,5 @@
 module Tricorder.CLI.App (run) where
 
-import Atelier.Effects.Cache (Cache)
 import Atelier.Effects.Clock (Clock)
 import Atelier.Effects.Conc (Conc)
 import Atelier.Effects.Console (Console)
@@ -16,14 +15,13 @@ import Atelier.Effects.Timeout (Timeout)
 import Effectful (IOE)
 import Effectful.Concurrent (Concurrent)
 import Effectful.Reader.Static (Reader, ask, asks)
-import Tricorder.SourceLookup.SourceQuery (ModuleName, SourceQuery)
+import Tricorder.CLI.Command (Command (..), LogMode (..))
 import Prelude hiding (force)
 
 import Atelier.Effects.Console qualified as Console
 import Data.Text qualified as T
 import Tricorder.CLI.Command.Daemon qualified as DaemonCommand
 
-import Tricorder.CLI.Arguments (Command (..), LogMode (..))
 import Tricorder.CLI.Daemon
     ( restartDaemon
     , startDaemon
@@ -43,23 +41,21 @@ import Tricorder.CLI.UI.Brick (Brick)
 import Tricorder.CLI.UI.BrickChan (BrickChan)
 import Tricorder.Daemon.DaemonInfo (DaemonInfo)
 import Tricorder.Runtime (LogPath (..), PidFile (..), SocketPath (..))
+import Tricorder.Session.CabalFile (CabalFile)
 import Tricorder.Session.Repl (Repl)
 import Tricorder.Socket.Client (isDaemonRunning)
 import Tricorder.Socket.UnixSocket (UnixSocket)
-import Tricorder.SourceLookup (ModuleSourceResult)
 import Tricorder.SourceLookup.GhcPkg (GhcPkg)
 import Tricorder.SourceLookup.Hackage (Hackage)
-import Tricorder.SourceLookup.PackageId (PackageId)
 import Tricorder.SourceLookup.PackageStore (PackageStore)
 
+import Tricorder.CLI.App.Test qualified as Test
 import Tricorder.CLI.UI.Keys qualified as Keys
 
 
 run
     :: ( Brick :> es
        , BrickChan :> es
-       , Cache (PackageId, SourceQuery) ModuleSourceResult :> es
-       , Cache ModuleName PackageId :> es
        , Clock :> es
        , Conc :> es
        , Concurrent :> es
@@ -74,6 +70,7 @@ run
        , IOE :> es
        , Input DaemonInfo :> es
        , Input Repl :> es
+       , Input [CabalFile] :> es
        , Log :> es
        , PackageStore :> es
        , Process :> es
@@ -118,13 +115,14 @@ run =
                     Console.putStrLn "Stopped."
                 else
                     showStatus opts
-        Test opts -> do
+        TestResults opts -> do
             running <- isDaemonRunning
             if not running
                 then
                     Console.putStrLn "Stopped."
                 else
                     showTests opts
+        Test testCmd -> Test.run testCmd
         Log logMode -> do
             logFile <- asks @LogPath (.getLogPath)
             case logMode of

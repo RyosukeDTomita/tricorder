@@ -7,6 +7,21 @@ and this project adheres to the [PVP](https://pvp.haskell.org/).
 
 ## [Unreleased]
 
+### Added
+
+- `Atelier.Types.JSON.StringLiteral`: helper `newtype` for parsing and encoding
+  values as exact string literals, regardless of their `Show` and `Read`
+  instances.
+- `Atelier.Types.JSON.ReadShow`: a copy of `Atelier.Types.JsonReadShow`, but
+  with a better name.
+- `Atelier.Types.JSON.QuietSnake`: a copy of `Atelier.Types.QuietSnake`, but
+  with a better name.
+
+### Deprecated
+
+- `Atelier.Types.JsonReadShow`: superseded by `Atelier.Types.JSON.ReadShow`.
+- `Atelier.Types.QuietSnake`: superseded by `Atelier.Types.JSON.QuietSnake`.
+
 ## [0.7.3.0] - 2026-10-02
 
 ### Added

@@ -9,6 +9,12 @@ and this project adheres to the [PVP](https://pvp.haskell.org/).
 
 ### Added
 
+- `tricorder test suites [TEST-TARGET...]` shows test suites, their test cases
+  and their output. `--fields` picks what to show for each suite, e.g.
+  `--fields 'name,cases(description,failure)'`; by default it shows a summary
+  of each suite. `--failed-only` keeps only failed suites and their failed test
+  cases. Text output is YAML, and `--json` gives JSON. This will replace
+  `tricorder test-results`. Non-breaking.
 - `tricorder source MODULE#SYMBOL` now follows re-exports: a symbol that
   `MODULE` re-exports rather than defines (e.g. `Data.Text#pack`, defined in
   `Data.Text.Internal`) is traced to its defining module, and its source is
@@ -16,6 +22,9 @@ and this project adheres to the [PVP](https://pvp.haskell.org/).
 - `tricorder source` now takes optional `--max-depth N` (re-export hops to
   follow, default 5; `0` disables following) and `--max-modules N` (modules to
   read while following, default 24) to bound the re-export search.
+- `tricorder source` now finds modules defined in the project itself, searching
+  the `hs-source-dirs` of every component of every project package before
+  falling back to installed packages.
 
 ### Changed
 
@@ -41,6 +50,14 @@ and this project adheres to the [PVP](https://pvp.haskell.org/).
   Previously it was rendered with `show`, so it appeared as
   `StartupFailed "..."` with line breaks printed as a literal `\n`.
   ([#542](https://github.com/tweag/tricorder/issues/542)) (Thanks @RyosukeDTomita)
+- Pre-built binaries on GitHub were built against paths in `/nix/store`, and
+  were not portable to systems that did not have Nix installed. The binaries are
+  now correctly linked to be used on non-Nix machines, and NixOS machines with
+  `nix-ld` enabled.
+
+### Deprecated
+
+- `tricorder test-results`: to be replaced by `tricorder test suites`.
 
 ## [0.5.0.0] - 2026-10-02
 
