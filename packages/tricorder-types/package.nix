@@ -4,7 +4,7 @@ let
 in
 {
   name = "tricorder-types";
-  version = "0.4.2.0";
+  version = "0.5.0.0";
   synopsis = "Shared domain types for various Tricorder components";
   description = ''
     Shared domain types for various Tricorder components like
@@ -44,7 +44,35 @@ in
     ]
     ++ depList [
       "aeson"
+      "atelier-core"
       "atelier-prelude"
+      "effectful"
+      "megaparsec"
+      "optparse-applicative"
+      "text"
+      "yaml"
+    ];
+  };
+  tests.tricorder-types-test = {
+    main = "Driver.hs";
+    source-dirs = "test";
+    ghc-options = [ "-Wno-prepositive-qualified-module" ];
+    build-tools = [ "tasty-discover:tasty-discover" ];
+    dependencies = [
+      {
+        name = "base";
+        version = constraints.base;
+        mixin = [ "hiding (Prelude)" ];
+      }
+    ]
+    ++ [ "tricorder-types" ]
+    ++ depList [
+      "aeson"
+      "atelier-core"
+      "atelier-prelude"
+      "tasty"
+      "tasty-discover"
+      "tasty-hunit"
       "text"
     ];
   };

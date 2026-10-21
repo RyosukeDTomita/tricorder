@@ -5,7 +5,7 @@ cabal-version: 2.0
 -- see: https://github.com/sol/hpack
 
 name:            tricorder
-version:         0.5.0.0
+version:         0.6.0.0
 synopsis:        Continuous Haskell build status, diagnostics, and tests via a shared daemon
 description:     tricorder rebuilds your Haskell project continuously and surfaces build status, diagnostics, test results, and documentation - for developers and LLM coding agents. Like ghcid and ghciwatch it reloads on every change, but builds run in a background daemon so multiple clients (an interactive TUI, a status CLI, an agent skill) share a single build state without triggering redundant rebuilds. It discovers components across multi-package cabal.project workspaces automatically and ships context-friendly output for agentic use via the CLI.
 category:        Development
@@ -47,15 +47,7 @@ library tricorder-internal
       Tricorder.CLI.App.Test.SuiteView
       Tricorder.CLI.App.Test.Text
       Tricorder.CLI.Arguments
-      Tricorder.CLI.Arguments.Daemon
-      Tricorder.CLI.Arguments.FieldMask
-      Tricorder.CLI.Arguments.IfDaemonIsStopped
-      Tricorder.CLI.Arguments.OutputFormat
-      Tricorder.CLI.Arguments.Test
-      Tricorder.CLI.Arguments.TestFilter
-      Tricorder.CLI.Arguments.WaitMode
       Tricorder.CLI.Daemon
-      Tricorder.CLI.FieldMask
       Tricorder.CLI.Main
       Tricorder.CLI.Operations
       Tricorder.CLI.Render
@@ -76,6 +68,7 @@ library tricorder-internal
       Tricorder.Daemon.Dispatch
       Tricorder.Daemon.EvalCommentRunner
       Tricorder.Daemon.Ghci.Config
+      Tricorder.Daemon.Ghci.Config.File
       Tricorder.Daemon.Ghci.Controls
       Tricorder.Daemon.Ghci.Diagnostic
       Tricorder.Daemon.Ghci.InterruptDecision
@@ -142,7 +135,6 @@ library tricorder-internal
       Tricorder.SourceLookup
       Tricorder.SourceLookup.GhcPkg
       Tricorder.SourceLookup.Hackage
-      Tricorder.SourceLookup.PackageId
       Tricorder.SourceLookup.PackageStore
       Tricorder.SourceLookup.Reexport
       Tricorder.SourceLookup.Slice
@@ -179,7 +171,7 @@ library tricorder-internal
     , Cabal-syntax >=3.12 && <3.17
     , Glob ==0.10.*
     , aeson >=2.2 && <2.4
-    , atelier-core ==0.7.*
+    , atelier-core ==0.8.*
     , atelier-prelude ==0.4.*
     , base >=4.18 && <4.23
     , brick ==3.0.*
@@ -208,7 +200,7 @@ library tricorder-internal
     , text ==2.1.*
     , time >=1.12 && <1.17
     , time-units ==1.0.*
-    , tricorder-types ==0.4.*
+    , tricorder-types ==0.5.*
     , vty >=6.5 && <6.7
     , vty-crossplatform ==0.5.*
     , yaml ==0.11.*
@@ -302,7 +294,6 @@ test-suite tricorder-test
       Unit.Tricorder.Build.ByteSizeSpec
       Unit.Tricorder.Build.EvalCommentSpec
       Unit.Tricorder.CLI.App.Test.SuiteViewSpec
-      Unit.Tricorder.CLI.FieldMaskSpec
       Unit.Tricorder.CLI.RenderSpec
       Unit.Tricorder.Daemon.BuilderSpec
       Unit.Tricorder.Daemon.BuildStateSpec
@@ -320,6 +311,7 @@ test-suite tricorder-test
       Unit.Tricorder.Session.ReplSpec
       Unit.Tricorder.Session.Stage.Build.CommandSpec
       Unit.Tricorder.Session.Stage.Eval.CommandSpec
+      Unit.Tricorder.Session.Stage.Eval.SessionSpec
       Unit.Tricorder.Session.Stage.Test.CommandSpec
       Unit.Tricorder.Session.TargetSpec
       Unit.Tricorder.Session.TestTargetSpec
@@ -361,7 +353,7 @@ test-suite tricorder-test
   build-depends:
       Cabal-syntax >=3.12 && <3.17
     , aeson >=2.2 && <2.4
-    , atelier-core ==0.7.*
+    , atelier-core ==0.8.*
     , atelier-prelude ==0.4.*
     , base >=4.18 && <4.23
     , bytestring >=0.11 && <0.13
@@ -383,7 +375,7 @@ test-suite tricorder-test
     , time >=1.12 && <1.17
     , time-units ==1.0.*
     , tricorder-internal
-    , tricorder-types ==0.4.*
+    , tricorder-types ==0.5.*
     , typed-process ==0.2.*
     , unagi-chan ==0.4.*
     , unix ==2.8.*

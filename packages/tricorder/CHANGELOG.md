@@ -9,6 +9,22 @@ and this project adheres to the [PVP](https://pvp.haskell.org/).
 
 ### Added
 
+- Option to configure how long Tricorder will wait for GHCi to start up and
+  shut down.
+- Option to set initial commands to pass to GHCi on startup.
+
+### Changed
+
+- `tricorder status` without `--verbose` now shows only the first line of a
+  test suite's error message, unless `--verbose` is set.
+  Previously, a test suite that failed on startup printed
+  the whole cabal/GHCi log on every `status` call.
+  ([#585](https://github.com/tweag/tricorder/issues/585))
+
+## [0.6.0.0] - 2026-10-20
+
+### Added
+
 - `tricorder test suites [TEST-TARGET...]` shows test suites, their test cases
   and their output. `--fields` picks what to show for each suite, e.g.
   `--fields 'name,cases(description,failure)'`; by default it shows a summary
@@ -44,11 +60,6 @@ and this project adheres to the [PVP](https://pvp.haskell.org/).
   supported as expected on keyboards where `?` is inputted with a modifier key.
 - Configuration parsing issues are now properly surfaced to the user, and shown
   in `tricorder ui`, as well as being outputted to `stderr` for other commands.
-- `tricorder status` without `--verbose` now shows only the first line of a
-  test suite's error message, unless `--verbose` is set.
-  Previously, a test suite that failed on startup printed
-  the whole cabal/GHCi log on every `status` call.
-  ([#585](https://github.com/tweag/tricorder/issues/585))
 
 ### Fixed
 

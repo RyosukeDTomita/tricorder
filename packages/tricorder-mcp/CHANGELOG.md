@@ -13,6 +13,8 @@ and this project adheres to the [PVP](https://pvp.haskell.org/).
   message unless `verbose` is set.
   ([#585](https://github.com/tweag/tricorder/issues/585))
 
+## [0.1.3.1] - 2026-10-20
+
 ### Fixed
 
 - Pre-built binaries on GitHub were built against paths in `/nix/store`, and

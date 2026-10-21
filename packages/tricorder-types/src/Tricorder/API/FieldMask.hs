@@ -1,4 +1,4 @@
-module Tricorder.CLI.Command.FieldMask
+module Tricorder.API.FieldMask
     ( FieldMask (..)
     , Field (..)
     , render

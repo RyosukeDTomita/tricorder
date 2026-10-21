@@ -9,9 +9,19 @@ and this project adheres to the [PVP](https://pvp.haskell.org/).
 
 ### Added
 
+- Moved all argument parsing functionality from `tricorder` to
+  `tricorder-types` for module locality.
+
+## [0.5.0.0] - 2026-10-20
+
+### Added
+
 - `Command`'s `Test` constructor for the `tricorder test` subcommand, with
   `Tricorder.CLI.Command.FieldMask` for selecting fields of the response.
   Non-breaking.
+- Move all `FieldMask` modules and functionality to one place here in
+  `tricorder-types` instead of having them spread out between `tricorder` and
+  `tricorder-types`.
 
 ### Changed
 

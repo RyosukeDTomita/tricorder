@@ -5,7 +5,7 @@ cabal-version: 2.0
 -- see: https://github.com/sol/hpack
 
 name:           tricorder-mcp
-version:        0.1.3.0
+version:        0.1.3.1
 synopsis:       MCP server for Tricorder
 description:    Model Context Protocol server for Tricorder.
 category:       AI,
@@ -60,7 +60,7 @@ library tricorder-mcp-internal
       TypeFamilies
   ghc-options: -Weverything -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-monomorphism-restriction -Wno-missing-kind-signatures -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-implicit-prelude -Wno-unticked-promoted-constructors -Wno-unused-packages -Wno-all-missed-specialisations -Wno-missed-specialisations -fplugin=Effectful.Plugin -threaded
   build-depends:
-      atelier-core ==0.7.*
+      atelier-core ==0.8.*
     , atelier-prelude ==0.4.*
     , base >=4.18 && <4.23
     , bytestring >=0.11 && <0.13
@@ -69,7 +69,7 @@ library tricorder-mcp-internal
     , effectful-plugin ==2.2.*
     , mcp-server ==0.2.*
     , process ==1.6.*
-    , tricorder-types ==0.4.*
+    , tricorder-types ==0.5.*
     , typed-process ==0.2.*
     , unix ==2.8.*
   mixins:
@@ -147,7 +147,7 @@ test-suite tricorder-mcp-test
   build-tool-depends:
       tasty-discover:tasty-discover
   build-depends:
-      atelier-core ==0.7.*
+      atelier-core ==0.8.*
     , atelier-prelude ==0.4.*
     , base >=4.18 && <4.23
     , effectful-core ==2.7.*
