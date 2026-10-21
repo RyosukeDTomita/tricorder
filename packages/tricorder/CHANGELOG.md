@@ -44,6 +44,11 @@ and this project adheres to the [PVP](https://pvp.haskell.org/).
   supported as expected on keyboards where `?` is inputted with a modifier key.
 - Configuration parsing issues are now properly surfaced to the user, and shown
   in `tricorder ui`, as well as being outputted to `stderr` for other commands.
+- `tricorder status` without `--verbose` now shows only the first line of a
+  test suite's error message, unless `--verbose` is set.
+  Previously, a test suite that failed on startup printed
+  the whole cabal/GHCi log on every `status` call.
+  ([#585](https://github.com/tweag/tricorder/issues/585))
 
 ### Fixed
 
