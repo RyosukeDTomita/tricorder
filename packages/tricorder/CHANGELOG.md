@@ -19,7 +19,7 @@ and this project adheres to the [PVP](https://pvp.haskell.org/).
   test suite's error message, unless `--verbose` is set.
   Previously, a test suite that failed on startup printed
   the whole cabal/GHCi log on every `status` call.
-  ([#585](https://github.com/tweag/tricorder/issues/585))
+  ([#585](https://github.com/tweag/tricorder/issues/585)) (Thanks @RyosukeDTomita!)
 
 ## [0.6.0.0] - 2026-10-20
 
